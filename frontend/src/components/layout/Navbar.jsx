@@ -33,8 +33,10 @@ const Navbar = () => {
     <header className="site-header">
       <nav className="nav-shell" aria-label="Điều hướng chính">
         <Link to="/" className="brand" onClick={closeMenu}>
-          <span className="brand-mark" aria-hidden="true">F</span>
-          <span className="brand-text">Seminar Food</span>
+          <span className="brand-mark" aria-hidden="true">
+            <img src="/orderup-avatar.png" alt="" />
+          </span>
+          <span className="brand-text">OrderUp</span>
         </Link>
 
         <button
@@ -77,7 +79,7 @@ const Navbar = () => {
               className={`nav-link ${isActive('/admin') ? 'active' : ''}`}
               onClick={closeMenu}
             >
-              Admin
+              Quản trị
             </Link>
           )}
 
@@ -95,7 +97,7 @@ const Navbar = () => {
                 </Link>
               )}
               <span className="nav-user" title={user.email}>
-                {user.isAdmin ? 'Admin Food' : user.displayName || user.email}
+                {user.isAdmin ? 'OrderUp Team' : user.displayName || user.email}
               </span>
               <button className="nav-action" onClick={handleLogout}>
                 Đăng xuất

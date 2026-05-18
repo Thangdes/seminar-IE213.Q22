@@ -4,13 +4,15 @@ import PageHero from '../components/ui/PageHero.jsx';
 import OrderList from '../features/orders/components/OrderList.jsx';
 import OrderStats from '../features/orders/components/OrderStats.jsx';
 import { buildOrderStats, statusFilters } from '../constants/orders.js';
-import { getOrders } from '../services/api.js';
+import { getOrders, reviewOrder } from '../services/api.js';
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [reviewSubmittingId, setReviewSubmittingId] = useState('');
 
   useEffect(() => {
     fetchOrders();
@@ -40,12 +42,27 @@ const OrdersPage = () => {
   );
   const stats = buildOrderStats(orders);
 
+  const handleSubmitReview = async (orderId, reviewData) => {
+    try {
+      setReviewSubmittingId(orderId);
+      const res = await reviewOrder(orderId, reviewData);
+      setOrders((prev) => prev.map((order) => (order._id === orderId ? res.data.data : order)));
+      setSuccessMsg('Đã lưu đánh giá đơn hàng.');
+      setError('');
+      setTimeout(() => setSuccessMsg(''), 2500);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Không thể lưu đánh giá đơn hàng');
+    } finally {
+      setReviewSubmittingId('');
+    }
+  };
+
   return (
     <main className="page-container">
       <PageHero
         eyebrow="Đơn hàng của tôi"
         title="Theo dõi đơn hàng"
-        subtitle="Trạng thái đơn được đồng bộ theo các cập nhật từ admin."
+        subtitle="Trạng thái đơn được đồng bộ theo từng bước xử lý của OrderUp."
         compact
       >
         <button className="btn btn-secondary" onClick={fetchOrders}>
@@ -61,6 +78,7 @@ const OrdersPage = () => {
           </button>
         </div>
       )}
+      {successMsg && <div className="alert alert-success">{successMsg}</div>}
 
       <OrderStats stats={stats} />
 
@@ -78,7 +96,11 @@ const OrdersPage = () => {
           <p>Đang tải đơn hàng...</p>
         </div>
       ) : (
-        <OrderList orders={filteredOrders} />
+        <OrderList
+          orders={filteredOrders}
+          onSubmitReview={handleSubmitReview}
+          reviewSubmittingId={reviewSubmittingId}
+        />
       )}
     </main>
   );

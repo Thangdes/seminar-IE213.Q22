@@ -34,6 +34,26 @@ const orderItemSchema = new mongoose.Schema(
   { _id: false } // Không tạo _id riêng cho sub-document
 );
 
+const orderReviewSchema = new mongoose.Schema(
+  {
+    rating: {
+      type: Number,
+      min: [1, 'Diem danh gia toi thieu la 1'],
+      max: [5, 'Diem danh gia toi da la 5'],
+    },
+    comment: {
+      type: String,
+      trim: true,
+      maxlength: [500, 'Danh gia khong duoc qua 500 ky tu'],
+      default: '',
+    },
+    reviewedAt: {
+      type: Date,
+    },
+  },
+  { _id: false },
+);
+
 // Schema chính cho đơn hàng
 const orderSchema = new mongoose.Schema(
   {
@@ -86,6 +106,11 @@ const orderSchema = new mongoose.Schema(
       trim: true,
       maxlength: [300, 'Ghi chú không được quá 300 ký tự'],
       default: '',
+    },
+
+    review: {
+      type: orderReviewSchema,
+      default: undefined,
     },
   },
   {

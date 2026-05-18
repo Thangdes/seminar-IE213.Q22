@@ -45,12 +45,12 @@ const AuthPage = ({ mode }) => {
     <main className="auth-page">
       <section className="auth-panel">
         <div className="auth-copy">
-          <p className="eyebrow">Tài khoản</p>
+          <p className="eyebrow">Tài khoản OrderUp</p>
           <h1>{isRegister ? 'Tạo tài khoản' : 'Đăng nhập'}</h1>
           <p>
             {isRegister
-              ? 'Đăng ký để quản lý hồ sơ và sử dụng các tính năng dành cho người dùng.'
-              : 'Đăng nhập để đặt món, theo dõi đơn hàng hoặc vào bảng điều khiển admin.'}
+              ? 'Đăng ký để lưu hồ sơ, đặt món nhanh hơn và theo dõi mọi đơn hàng của bạn.'
+              : 'Đăng nhập để đặt món, theo dõi đơn hàng và quản lý trải nghiệm OrderUp của bạn.'}
           </p>
         </div>
 

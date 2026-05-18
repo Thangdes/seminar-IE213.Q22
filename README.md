@@ -1,8 +1,8 @@
-# Food Ordering Web App - MERN Stack
+# OrderUp - MERN Food Ordering App
 
-Ung dung dat mon an truc tuyen xay dung bang MERN Stack: MongoDB, Express, React, Node.js.
+OrderUp la ung dung dat mon an truc tuyen xay dung bang MERN Stack: MongoDB, Express, React, Node.js.
 
-Du an seminar: **Trien khai GitHub Actions cho FullStack Deployment trong ung dung MERN Stack**.
+Du an mon hoc: **Trien khai GitHub Actions cho FullStack Deployment trong ung dung MERN Stack**.
 
 ## Tinh Nang Chinh
 

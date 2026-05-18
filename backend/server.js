@@ -58,7 +58,7 @@ app.use('/api/orders', orderRoutes);
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: '🍔 Food Ordering API đang hoạt động!',
+    message: 'OrderUp API đang hoạt động!',
     endpoints: {
       auth: '/api/auth',
       users: '/api/users',
@@ -75,6 +75,6 @@ app.use(errorHandler);
 // ===== KHỞI ĐỘNG SERVER =====
 app.listen(PORT, () => {
   console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
-  console.log(`📋 API Foods: http://localhost:${PORT}/api/foods`);
-  console.log(`📦 API Orders: http://localhost:${PORT}/api/orders`);
+  console.log(`OrderUp Foods API: http://localhost:${PORT}/api/foods`);
+  console.log(`OrderUp Orders API: http://localhost:${PORT}/api/orders`);
 });

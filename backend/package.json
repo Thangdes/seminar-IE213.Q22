@@ -1,7 +1,7 @@
 {
   "name": "food-ordering-backend",
   "version": "1.0.0",
-  "description": "Backend API cho Food Ordering Web App — MERN Stack Seminar",
+  "description": "Backend API cho OrderUp food ordering app",
   "main": "server.js",
   "type": "module",
   "scripts": {

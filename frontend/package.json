@@ -2,7 +2,7 @@
   "name": "food-ordering-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Frontend React cho Food Ordering Web App — MERN Stack Seminar",
+  "description": "Frontend React cho OrderUp food ordering app",
   "type": "module",
   "scripts": {
     "dev": "vite",

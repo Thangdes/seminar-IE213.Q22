@@ -85,7 +85,7 @@ const MenuPage = () => {
       setCustomerName('');
       setOrderNote('');
       setShowCart(false);
-      setOrderSuccess('Đặt hàng thành công. Admin sẽ duyệt trạng thái đơn của bạn.');
+      setOrderSuccess('Đặt hàng thành công. OrderUp sẽ cập nhật trạng thái đơn của bạn.');
       setTimeout(() => setOrderSuccess(''), 3000);
     } catch (err) {
       if (err.response?.status === 401) {
@@ -106,9 +106,9 @@ const MenuPage = () => {
   return (
     <main className="page-container">
       <PageHero
-        eyebrow="Menu seminar"
+        eyebrow="OrderUp Menu"
         title="Thực đơn hôm nay"
-        subtitle="Chọn món admin đã đăng, thêm vào giỏ và tạo đơn nhanh cho buổi seminar."
+        subtitle="Chọn món yêu thích, thêm vào giỏ và tạo đơn nhanh trong vài bước."
       >
         <div className="header-actions">
           <button id="toggle-cart" className="btn btn-primary" onClick={() => setShowCart(true)}>

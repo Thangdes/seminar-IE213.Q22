@@ -98,14 +98,21 @@ img {
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   display: inline-grid;
   place-items: center;
-  border: 1px solid var(--text);
+  overflow: hidden;
+  border: 1px solid rgba(29, 28, 26, 0.16);
   border-radius: 50%;
-  font-size: 13px;
-  font-weight: 800;
+  background: var(--text);
+  box-shadow: 0 8px 20px rgba(29, 28, 26, 0.14);
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .brand-text {
@@ -325,6 +332,11 @@ select:focus-visible {
   background: var(--danger-bg);
   color: var(--danger);
   border-color: rgba(159, 50, 43, 0.18);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
 }
 
 .btn-success {
@@ -715,6 +727,145 @@ select:focus-visible {
   margin-top: 16px;
 }
 
+.review-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border: 1px solid #dfcda9;
+  border-radius: 999px;
+  background: #fbf4e6;
+  color: #755f2f;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.review-summary,
+.review-form,
+.review-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(247, 245, 241, 0.58);
+}
+
+.review-summary {
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.review-summary-heading,
+.review-card-header,
+.review-card-meta,
+.review-admin-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.review-summary-heading strong,
+.review-card-header h3,
+.review-admin-metrics strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.review-summary-heading span,
+.review-card-header strong {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--text);
+  color: #fffdf9;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.review-summary p,
+.review-card p {
+  margin-top: 9px;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+
+.review-summary small,
+.review-card-header span,
+.review-card-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.review-summary small {
+  display: block;
+  margin-top: 8px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.review-form-header h4 {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 850;
+}
+
+.review-form-header p {
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.review-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.review-card {
+  padding: 16px;
+}
+
+.review-card-meta {
+  align-items: flex-start;
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.review-card-meta span:first-child {
+  min-width: 0;
+}
+
+.review-card-meta span:last-child {
+  color: var(--text);
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.review-admin-metrics {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 10px 14px;
+}
+
+.review-admin-metrics span {
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 750;
+}
+
 .modal-overlay,
 .cart-overlay {
   position: fixed;
@@ -780,6 +931,7 @@ select:focus-visible {
 }
 
 .form-field label,
+.form-field > span,
 .cart-field span {
   color: var(--text);
   font-size: 13px;
@@ -1908,6 +2060,10 @@ select:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .review-list {
+    grid-template-columns: 1fr;
+  }
+
   .order-header,
   .order-meta {
     align-items: flex-start;
@@ -2101,7 +2257,11 @@ select:focus-visible {
 
   .buyer-card-header,
   .buyer-security-item,
-  .buyer-social-item {
+  .buyer-social-item,
+  .review-summary-heading,
+  .review-card-header,
+  .review-card-meta,
+  .review-admin-metrics {
     align-items: flex-start;
     flex-direction: column;
   }

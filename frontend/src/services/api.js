@@ -39,6 +39,8 @@ export const createOrder = (orderData) => api.post('/api/orders', orderData);
 
 export const updateOrder = (id, orderData) => api.put(`/api/orders/${id}`, orderData);
 
+export const reviewOrder = (id, reviewData) => api.put(`/api/orders/${id}/review`, reviewData);
+
 export const deleteOrder = (id) => api.delete(`/api/orders/${id}`);
 
 export default api;

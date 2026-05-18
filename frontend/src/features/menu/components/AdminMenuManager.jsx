@@ -17,7 +17,7 @@ const AdminMenuManager = ({
       <div className="admin-section-header">
         <div>
           <p className="eyebrow">Thực đơn</p>
-          <h2>Món admin đã đăng</h2>
+          <h2>Thực đơn OrderUp</h2>
         </div>
         <button className="btn btn-primary" onClick={onAddClick}>
           Thêm món
@@ -31,7 +31,7 @@ const AdminMenuManager = ({
         </div>
       ) : foods.length === 0 ? (
         <div className="empty-state">
-          <p>Chưa có món ăn nào. Hãy thêm món đầu tiên cho user.</p>
+          <p>Chưa có món ăn nào. Hãy thêm món đầu tiên cho khách hàng.</p>
         </div>
       ) : (
         <div className="food-grid">

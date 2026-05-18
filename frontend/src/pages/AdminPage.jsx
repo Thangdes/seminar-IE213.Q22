@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import FilterBar from '../components/ui/FilterBar.jsx';
 import PageHero from '../components/ui/PageHero.jsx';
 import AdminMenuManager from '../features/menu/components/AdminMenuManager.jsx';
+import AdminReviewList from '../features/orders/components/AdminReviewList.jsx';
 import OrderList from '../features/orders/components/OrderList.jsx';
 import OrderStats from '../features/orders/components/OrderStats.jsx';
 import { buildOrderStats, statusFilters } from '../constants/orders.js';
@@ -114,13 +115,17 @@ const AdminPage = () => {
     [orders, statusFilter],
   );
   const stats = buildOrderStats(orders);
+  const reviewedOrders = orders.filter((order) => order.review?.rating);
+  const averageRating = reviewedOrders.length
+    ? (reviewedOrders.reduce((sum, order) => sum + Number(order.review.rating), 0) / reviewedOrders.length).toFixed(1)
+    : '0.0';
 
   return (
     <main className="page-container admin-page">
       <PageHero
-        eyebrow="Admin"
-        title="Bảng điều khiển"
-        subtitle="Quản lý thực đơn hiển thị cho user và duyệt trạng thái đơn hàng từ một nơi."
+        eyebrow="OrderUp Control"
+        title="Trung tâm vận hành"
+        subtitle="Quản lý thực đơn, xử lý đơn hàng và theo dõi phản hồi khách hàng từ một nơi."
         compact
       >
         <button className="btn btn-secondary" onClick={() => { fetchFoods(); fetchOrders(); }}>
@@ -172,7 +177,7 @@ const AdminPage = () => {
           items={statusFilters}
           activeValue={statusFilter}
           counts={stats}
-          ariaLabel="Lọc trạng thái đơn hàng admin"
+          ariaLabel="Lọc trạng thái đơn hàng vận hành"
           onChange={setStatusFilter}
         />
 
@@ -188,6 +193,28 @@ const AdminPage = () => {
             onUpdateStatus={handleUpdateStatus}
             onDelete={handleDeleteOrder}
           />
+        )}
+      </section>
+
+      <section className="admin-section">
+        <div className="admin-section-header">
+          <div>
+            <p className="eyebrow">Đánh giá</p>
+            <h2>Phản hồi từ khách hàng</h2>
+          </div>
+          <div className="review-admin-metrics">
+            <span>{reviewedOrders.length} đánh giá</span>
+            <strong>{averageRating}/5</strong>
+          </div>
+        </div>
+
+        {orderLoading ? (
+          <div className="loading-state">
+            <div className="spinner" />
+            <p>Đang tải đánh giá...</p>
+          </div>
+        ) : (
+          <AdminReviewList orders={orders} />
         )}
       </section>
     </main>

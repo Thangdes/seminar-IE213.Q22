@@ -20,15 +20,16 @@ const sanitizeSocialAccount = (account) => ({
 });
 
 const buildShoppingStats = async (userId) => {
-  const [totalOrders, processingOrders] = await Promise.all([
+  const [totalOrders, processingOrders, reviewsWritten] = await Promise.all([
     Order.countDocuments({ user: userId }),
     Order.countDocuments({ user: userId, status: { $in: ['pending', 'confirmed'] } }),
+    Order.countDocuments({ user: userId, 'review.rating': { $exists: true } }),
   ]);
 
   return {
     totalOrders,
     processingOrders,
-    reviewsWritten: 0,
+    reviewsWritten,
   };
 };
 
