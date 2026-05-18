@@ -6,8 +6,10 @@ import dns from 'dns';
 import dotenv from 'dotenv';
 
 // Import routes
+import authRoutes from './routes/auth.js';
 import foodRoutes from './routes/foods.js';
 import orderRoutes from './routes/orders.js';
+import userRoutes from './routes/users.js';
 
 // Import middleware xử lý lỗi
 import errorHandler from './middleware/errorHandler.js';
@@ -28,7 +30,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 // Parse JSON body từ request
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 
 // ===== KẾT NỐI MONGODB =====
 // Sử dụng MongoDB Atlas — connection string từ biến môi trường
@@ -44,6 +46,8 @@ mongoose
 
 // ===== ĐĂNG KÝ ROUTES =====
 // Tất cả route món ăn: /api/foods/*
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
 
 // Tất cả route đơn hàng: /api/orders/*
@@ -56,6 +60,8 @@ app.get('/', (req, res) => {
     success: true,
     message: '🍔 Food Ordering API đang hoạt động!',
     endpoints: {
+      auth: '/api/auth',
+      users: '/api/users',
       foods: '/api/foods',
       orders: '/api/orders',
     },

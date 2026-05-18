@@ -38,6 +38,13 @@ const orderItemSchema = new mongoose.Schema(
 const orderSchema = new mongoose.Schema(
   {
     // Tên khách hàng — bắt buộc
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Nguoi dung la bat buoc'],
+      index: true,
+    },
+
     customerName: {
       type: String,
       required: [true, 'Tên khách hàng là bắt buộc'],

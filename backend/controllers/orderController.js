@@ -1,12 +1,10 @@
-// controllers/orderController.js — Xử lý logic CRUD cho đơn hàng
 import Order from '../models/Order.js';
 
-// ===== LẤY TẤT CẢ ĐƠN HÀNG =====
-// GET /api/orders — Trả về danh sách đơn hàng, populate thông tin món ăn
 export const getAllOrders = async (req, res, next) => {
   try {
-    // Populate để lấy thông tin chi tiết món ăn từ collection foods
-    const orders = await Order.find()
+    const query = req.user.role === 'admin' ? {} : { user: req.user._id };
+    const orders = await Order.find(query)
+      .populate('user', 'email fullName displayName')
       .populate('items.food', 'name price image')
       .sort({ createdAt: -1 });
 
@@ -20,13 +18,12 @@ export const getAllOrders = async (req, res, next) => {
   }
 };
 
-// ===== TẠO ĐƠN HÀNG MỚI =====
-// POST /api/orders — Tạo đơn hàng từ giỏ hàng của khách
 export const createOrder = async (req, res, next) => {
   try {
     const { customerName, items, totalPrice, note } = req.body;
 
     const order = await Order.create({
+      user: req.user._id,
       customerName,
       items,
       totalPrice,
@@ -43,16 +40,30 @@ export const createOrder = async (req, res, next) => {
   }
 };
 
-// ===== CẬP NHẬT ĐƠN HÀNG =====
-// PUT /api/orders/:id — Cập nhật trạng thái đơn hàng (pending → confirmed → delivered)
 export const updateOrder = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Chi admin moi co quyen duyet don hang',
+      });
+    }
 
-    const order = await Order.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const { id } = req.params;
+    const updates = {};
+
+    if (Object.prototype.hasOwnProperty.call(req.body, 'status')) {
+      updates.status = req.body.status;
+    }
+
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { $set: updates },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!order) {
       return res.status(404).json({
@@ -71,10 +82,15 @@ export const updateOrder = async (req, res, next) => {
   }
 };
 
-// ===== XÓA ĐƠN HÀNG =====
-// DELETE /api/orders/:id — Xóa đơn hàng theo ID
 export const deleteOrder = async (req, res, next) => {
   try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Chi admin moi co quyen xoa don hang',
+      });
+    }
+
     const { id } = req.params;
 
     const order = await Order.findByIdAndDelete(id);
