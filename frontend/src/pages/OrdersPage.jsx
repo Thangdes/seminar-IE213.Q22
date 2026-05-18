@@ -22,6 +22,9 @@ const OrdersPage = () => {
     try {
       setLoading(true);
       const res = await getOrders();
+      if (!Array.isArray(res.data?.data)) {
+        throw new Error('INVALID_API_RESPONSE');
+      }
       setOrders(res.data.data);
       setError('');
     } catch (err) {
@@ -30,6 +33,7 @@ const OrdersPage = () => {
         return;
       }
       setError('Không thể tải danh sách đơn hàng');
+      setOrders([]);
       console.error(err);
     } finally {
       setLoading(false);

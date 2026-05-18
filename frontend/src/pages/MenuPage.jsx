@@ -26,10 +26,14 @@ const MenuPage = () => {
     try {
       setLoading(true);
       const res = await getFoods();
+      if (!Array.isArray(res.data?.data)) {
+        throw new Error('INVALID_API_RESPONSE');
+      }
       setFoods(res.data.data);
       setError('');
     } catch (err) {
-      setError('Không thể tải danh sách món ăn. Vui lòng thử lại.');
+      setFoods([]);
+      setError('Không thể tải danh sách món ăn. Vui lòng kiểm tra cấu hình API của OrderUp.');
       console.error(err);
     } finally {
       setLoading(false);

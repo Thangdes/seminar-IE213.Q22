@@ -41,9 +41,13 @@ const AdminPage = () => {
     try {
       setFoodLoading(true);
       const res = await getFoods();
+      if (!Array.isArray(res.data?.data)) {
+        throw new Error('INVALID_API_RESPONSE');
+      }
       setFoods(res.data.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Không thể tải thực đơn');
+      setFoods([]);
+      setError(err.response?.data?.message || 'Không thể tải thực đơn. Vui lòng kiểm tra cấu hình API.');
     } finally {
       setFoodLoading(false);
     }
@@ -53,9 +57,13 @@ const AdminPage = () => {
     try {
       setOrderLoading(true);
       const res = await getOrders();
+      if (!Array.isArray(res.data?.data)) {
+        throw new Error('INVALID_API_RESPONSE');
+      }
       setOrders(res.data.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Không thể tải đơn hàng');
+      setOrders([]);
+      setError(err.response?.data?.message || 'Không thể tải đơn hàng. Vui lòng kiểm tra cấu hình API.');
     } finally {
       setOrderLoading(false);
     }
