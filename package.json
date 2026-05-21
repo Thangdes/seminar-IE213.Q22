@@ -1,0 +1,11 @@
+{
+  "name": "seminar-food-order-root",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "start": "yarn workspace food-ordering-backend start"
+  }
+}
