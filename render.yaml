@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: orderup-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: /
