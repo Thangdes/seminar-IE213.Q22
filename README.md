@@ -25,14 +25,14 @@ Khi dang nhap bang tai khoan nay, frontend tu chuyen sang trang `/admin`.
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
+| Layer    | Technology                                 |
+| -------- | ------------------------------------------ |
 | Frontend | React 18 + Vite + React Router DOM + Axios |
-| Backend | Express.js + Mongoose |
-| Database | MongoDB Atlas |
-| Auth | Custom JWT |
-| CI/CD | GitHub Actions |
-| Deploy | Vercel frontend + Render backend |
+| Backend  | Express.js + Mongoose                      |
+| Database | MongoDB Atlas                              |
+| Auth     | Custom JWT                                 |
+| CI/CD    | GitHub Actions                             |
+| Deploy   | Vercel frontend + Render backend           |
 
 ## Cau Truc Du An
 
@@ -177,14 +177,14 @@ npm run build
 
 ## Frontend Routes
 
-| Route | Quyen | Mo ta |
-|-------|-------|------|
-| `/` | Public | Trang thuc don user nhin thay |
-| `/login` | Public | Dang nhap user/admin |
-| `/register` | Public | Dang ky tai khoan user |
-| `/orders` | User | User xem don hang cua minh |
-| `/profile` | User | User cap nhat ho so va xem tong quan don hang |
-| `/admin` | Admin | Admin quan ly thuc don va duyet don |
+| Route         | Quyen  | Mo ta                                         |
+| ------------- | ------ | --------------------------------------------- |
+| `/`         | Public | Trang thuc don user nhin thay                 |
+| `/login`    | Public | Dang nhap user/admin                          |
+| `/register` | Public | Dang ky tai khoan user                        |
+| `/orders`   | User   | User xem don hang cua minh                    |
+| `/profile`  | User   | User cap nhat ho so va xem tong quan don hang |
+| `/admin`    | Admin  | Admin quan ly thuc don va duyet don           |
 
 ## API Endpoints
 
@@ -198,10 +198,10 @@ Authorization: Bearer <accessToken>
 
 ### Auth
 
-| Method | Endpoint | Body | Mo ta |
-|--------|----------|------|-------|
-| POST | `/api/auth/register` | `{ "email": string, "password": string }` | Dang ky user moi |
-| POST | `/api/auth/login` | `{ "email": string, "password": string }` | Dang nhap user hoac admin |
+| Method | Endpoint               | Body                                        | Mo ta                     |
+| ------ | ---------------------- | ------------------------------------------- | ------------------------- |
+| POST   | `/api/auth/register` | `{ "email": string, "password": string }` | Dang ky user moi          |
+| POST   | `/api/auth/login`    | `{ "email": string, "password": string }` | Dang nhap user hoac admin |
 
 Ghi chu:
 
@@ -211,31 +211,31 @@ Ghi chu:
 
 ### Users / Profile
 
-| Method | Endpoint | Auth | Body | Mo ta |
-|--------|----------|------|------|-------|
-| GET | `/api/users/me` | User | none | Lay profile user va thong ke don hang |
-| PATCH | `/api/users/me` | User | profile fields | Cap nhat profile user |
-| PATCH | `/api/users/me/password` | User | `{ "currentPassword": string, "newPassword": string }` | Doi mat khau user |
+| Method | Endpoint                   | Auth | Body                                                     | Mo ta                                 |
+| ------ | -------------------------- | ---- | -------------------------------------------------------- | ------------------------------------- |
+| GET    | `/api/users/me`          | User | none                                                     | Lay profile user va thong ke don hang |
+| PATCH  | `/api/users/me`          | User | profile fields                                           | Cap nhat profile user                 |
+| PATCH  | `/api/users/me/password` | User | `{ "currentPassword": string, "newPassword": string }` | Doi mat khau user                     |
 
 Response user/profile khong bao gio bao gom `passwordHash`.
 
 ### Foods
 
-| Method | Endpoint | Auth | Mo ta |
-|--------|----------|------|-------|
-| GET | `/api/foods` | Public | Lay tat ca mon an admin da dang |
-| POST | `/api/foods` | Admin | Them mon an moi |
-| PUT | `/api/foods/:id` | Admin | Cap nhat mon an |
-| DELETE | `/api/foods/:id` | Admin | Xoa mon an |
+| Method | Endpoint           | Auth   | Mo ta                           |
+| ------ | ------------------ | ------ | ------------------------------- |
+| GET    | `/api/foods`     | Public | Lay tat ca mon an admin da dang |
+| POST   | `/api/foods`     | Admin  | Them mon an moi                 |
+| PUT    | `/api/foods/:id` | Admin  | Cap nhat mon an                 |
+| DELETE | `/api/foods/:id` | Admin  | Xoa mon an                      |
 
 ### Orders
 
-| Method | Endpoint | Auth | Mo ta |
-|--------|----------|------|-------|
-| GET | `/api/orders` | User/Admin | User lay don cua minh, admin lay tat ca don |
-| POST | `/api/orders` | User | Tao don hang moi cho user dang dang nhap |
-| PUT | `/api/orders/:id` | Admin | Admin cap nhat trang thai don |
-| DELETE | `/api/orders/:id` | Admin | Admin xoa don |
+| Method | Endpoint            | Auth       | Mo ta                                       |
+| ------ | ------------------- | ---------- | ------------------------------------------- |
+| GET    | `/api/orders`     | User/Admin | User lay don cua minh, admin lay tat ca don |
+| POST   | `/api/orders`     | User       | Tao don hang moi cho user dang dang nhap    |
+| PUT    | `/api/orders/:id` | Admin      | Admin cap nhat trang thai don               |
+| DELETE | `/api/orders/:id` | Admin      | Admin xoa don                               |
 
 Trang thai don hang hien co:
 
@@ -263,25 +263,35 @@ pending -> confirmed -> delivered
 
 ## CI/CD Pipeline
 
-GitHub Actions workflow tu dong chay khi push len `main` hoac chay thu cong bang `workflow_dispatch`:
+GitHub Actions duoc tach thanh 2 workflow rieng:
 
-1. Validate Frontend: install, build, verify `dist/`.
-2. Validate Backend: install, syntax check.
-3. Deploy Frontend: goi deploy hook cua Vercel.
-4. Deploy Backend: goi deploy hook cua Render.
+1. [ci.yml](.github/workflows/ci.yml): chay khi push/pull_request vao `main` hoac `develop`, gom test frontend va test backend.
+2. [deploy.yml](.github/workflows/deploy.yml): chay khi CI hoan thanh thanh cong tren `main` hoac chay thu cong bang `workflow_dispatch`, sau do deploy frontend va backend.
+
+### CI workflow
+
+1. Test Frontend: install, `npm test`, build.
+2. Test Backend: install, `npm test`, kiem tra cu phap server va helper.
+
+### CD workflow
+
+1. Deploy Frontend: goi deploy hook cua Vercel.
+2. Deploy Backend: goi deploy hook cua Render.
+
+Luu y: frontend dang su dung deploy hook cua Vercel, khong phai `vercel/vercel-deploy` hay Vercel CLI. Cach nay van hop le cho seminar vi ban chat la kich hoat deploy tu GitHub Actions va khong dung Docker.
 
 ### Secret can cau hinh tren GitHub
 
-| Secret | Mo ta |
-|--------|-------|
+| Secret                     | Mo ta                                        |
+| -------------------------- | -------------------------------------------- |
 | `VERCEL_DEPLOY_HOOK_URL` | Deploy hook cua project frontend tren Vercel |
-| `RENDER_DEPLOY_HOOK_URL` | Deploy hook cua service backend tren Render |
+| `RENDER_DEPLOY_HOOK_URL` | Deploy hook cua service backend tren Render  |
 
 ### File cau hinh deployment
 
 | File | Vai tro |
-|------|--------|
-| [vercel.json](vercel.json) | Cau hinh SPA rewrite va build output cho frontend |
+|------|---------|
+| [frontend/vercel.json](frontend/vercel.json) | Cau hinh SPA rewrite va build output cho frontend |
 | [render.yaml](render.yaml) | Khai bao backend service cho Render |
 
 ### Luong deploy
@@ -338,12 +348,14 @@ Du an co cac thanh phan can thiet de demo that:
 1. Workflow khong chi build ma con co buoc deploy that.
 2. Frontend va backend duoc tach doc lap nhung van lien ket qua API.
 3. MongoDB Atlas dong vai tro backend data layer cho toan bo he thong.
-4. Co cung cap file cau hinh rieng cho tung nen tang: `vercel.json` va `render.yaml`.
+4. Co cung cap file cau hinh rieng cho tung nen tang: `frontend/vercel.json` va `render.yaml`.
+5. Da co test toi thieu cho backend va frontend de CI co nghia hon.
+6. CI co them lint step de kiem tra chat luong code co ban.
 
 ### Gioi han hien tai
 
 1. Workflow deploy dang dung deploy hook thay vi GitHub Actions native integration.
-2. Chuong trinh chua co test automation day du cho logic nghiep vu.
+2. Test hien tai moi la muc toi thieu, chua bao phu logic nghiep vu phuc tap.
 3. Khong co quan sat production nhu logging, monitoring, hoac rollback strategy.
 4. Chua co IaC day du cho toan bo he thong, moi co blueprint cho Render va cau hinh Vercel.
 
