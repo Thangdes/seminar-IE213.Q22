@@ -1,7 +1,7 @@
 // middleware/errorHandler.js — Middleware xử lý lỗi tập trung
 // Mọi error từ controller sẽ được chuyển đến đây qua next(error)
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, _next) => {
   // Log lỗi chi tiết ra console để debug
   console.error('❌ Error:', err.message);
 
