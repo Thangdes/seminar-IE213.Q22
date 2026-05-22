@@ -32,7 +32,7 @@ const OrdersPage = () => {
         setError('Vui lòng đăng nhập để xem danh sách đơn hàng của bạn.');
         return;
       }
-      setError('Không thể tải danh sách đơn hàng');
+      setError('Không thể tải danh sách đơn hàng.');
       setOrders([]);
       console.error(err);
     } finally {
