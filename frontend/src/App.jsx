@@ -5,7 +5,7 @@ import AuthPage from './pages/AuthPage.jsx';
 import MenuPage from './pages/MenuPage.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
-import { getAuthUser } from './utils/auth.js';
+import { getAuthUser } from './utils/auth.js';vdfvfds
 
 const RequireAuth = ({ children }) => {
   return getAuthUser() ? children : <Navigate to="/login" replace />;
