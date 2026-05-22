@@ -33,7 +33,23 @@ jobs:
             exit 1
           fi
 
-          curl -fsSL --retry 3 --retry-delay 5 -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          if echo "$VERCEL_DEPLOY_HOOK_URL" | grep -q ' ' ; then
+            echo "VERCEL_DEPLOY_HOOK_URL contains whitespace — please fix the secret value"
+            exit 1
+          fi
+
+          echo "VERCEL hook URL length: $(printf '%s' "$VERCEL_DEPLOY_HOOK_URL" | wc -c)"
+
+          resp=$(curl -sS -w "\n%{http_code}" -X POST "$VERCEL_DEPLOY_HOOK_URL" || true)
+          http_code=$(echo "$resp" | tail -n1)
+          body=$(echo "$resp" | sed '$d')
+          echo "HTTP status: $http_code"
+          echo "Response body:"
+          echo "$body"
+
+          if [ "${http_code:0:1}" != "2" ]; then
+            exit 1
+          fi
 
   deploy-backend:
     name: Deploy Backend to Render
@@ -50,4 +66,20 @@ jobs:
             exit 1
           fi
 
-          curl -fsSL --retry 3 --retry-delay 5 -X POST "$RENDER_DEPLOY_HOOK_URL"
+          if echo "$RENDER_DEPLOY_HOOK_URL" | grep -q ' ' ; then
+            echo "RENDER_DEPLOY_HOOK_URL contains whitespace — please fix the secret value"
+            exit 1
+          fi
+
+          echo "RENDER hook URL length: $(printf '%s' "$RENDER_DEPLOY_HOOK_URL" | wc -c)"
+
+          resp=$(curl -sS -w "\n%{http_code}" -X POST "$RENDER_DEPLOY_HOOK_URL" || true)
+          http_code=$(echo "$resp" | tail -n1)
+          body=$(echo "$resp" | sed '$d')
+          echo "HTTP status: $http_code"
+          echo "Response body:"
+          echo "$body"
+
+          if [ "${http_code:0:1}" != "2" ]; then
+            exit 1
+          fi
