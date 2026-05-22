@@ -111,7 +111,7 @@ const MenuPage = () => {
     <main className="page-container">
       <PageHero
         eyebrow="OrderUp Menu"
-        title="Thực đơn hôm nay nha nha "
+        title="Thực đơn hôm nay "
         subtitle="Chọn món yêu thích, thêm vào giỏ và tạo đơn nhanh trong vài bước."
       >
         <div className="header-actions">
