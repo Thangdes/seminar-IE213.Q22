@@ -105,13 +105,12 @@ const MenuPage = () => {
     [filter, foods],
   );
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);njvufd
-
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <main className="page-container">
       <PageHero
         eyebrow="OrderUp Menu"
-        title="Thực đơn hôm nay của bạn là gì?"
+        title="Thực đơn hôm nay "
         subtitle="Chọn món yêu thích, thêm vào giỏ và tạo đơn nhanh trong vài bước."
       >
         <div className="header-actions">
