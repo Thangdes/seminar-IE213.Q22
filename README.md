@@ -289,10 +289,10 @@ Luu y: frontend dang su dung deploy hook cua Vercel, khong phai `vercel/vercel-d
 
 ### File cau hinh deployment
 
-| File | Vai tro |
-|------|---------|
+| File                                      | Vai tro                                           |
+| ----------------------------------------- | ------------------------------------------------- |
 | [frontend/vercel.json](frontend/vercel.json) | Cau hinh SPA rewrite va build output cho frontend |
-| [render.yaml](render.yaml) | Khai bao backend service cho Render |
+| [render.yaml](render.yaml)                   | Khai bao backend service cho Render               |
 
 ### Luong deploy
 
@@ -310,71 +310,3 @@ Luu y: frontend dang su dung deploy hook cua Vercel, khong phai `vercel/vercel-d
 5. Tren Render, dat `PORT`, `MONGODB_URI`, `JWT_SECRET`, `NODE_ENV=production`.
 6. Tren Vercel, dat `VITE_API_URL` tro den URL backend tren Render.
 7. Push code len `main` hoac chay workflow thu cong tu tab Actions.
-
-### Checklist demo seminar
-
-Ban co the trinh bay theo luong sau:
-
-1. Code duoc push len GitHub.
-2. GitHub Actions chay build frontend va kiem tra backend.
-3. Neu hop le, workflow goi deploy hook de cap nhat frontend/backend.
-4. Frontend production goi API backend qua `VITE_API_URL`.
-5. MongoDB Atlas luu du lieu don hang va user.
-
-## Muc do dap ung seminar
-
-### Ve mat ly thuyet
-
-Du an da dap ung cac y chinh cua de tai:
-
-1. Trinh bay dung mo hinh FullStack gom frontend, backend, database.
-2. The hien ro y tuong CI/CD bang GitHub Actions.
-3. Co luong deploy cho ca frontend va backend.
-4. Co moi truong production tach rieng voi development.
-5. Co tai lieu mo ta day du luong chay va cau hinh.
-
-### Ve mat ky thuat
-
-Du an co cac thanh phan can thiet de demo that:
-
-1. Backend Express ket noi MongoDB Atlas.
-2. Frontend React goi API backend bang Axios.
-3. Bien moi truong `VITE_API_URL` de tach local va production.
-4. GitHub Actions build, kiem tra, va kich hoat deploy hook.
-5. Vercel phu hop cho frontend SPA, Render phu hop cho backend Node.js.
-
-### Nhung diem co the noi trong bao ve
-
-1. Workflow khong chi build ma con co buoc deploy that.
-2. Frontend va backend duoc tach doc lap nhung van lien ket qua API.
-3. MongoDB Atlas dong vai tro backend data layer cho toan bo he thong.
-4. Co cung cap file cau hinh rieng cho tung nen tang: `frontend/vercel.json` va `render.yaml`.
-5. Da co test toi thieu cho backend va frontend de CI co nghia hon.
-6. CI co them lint step de kiem tra chat luong code co ban.
-
-### Gioi han hien tai
-
-1. Workflow deploy dang dung deploy hook thay vi GitHub Actions native integration.
-2. Test hien tai moi la muc toi thieu, chua bao phu logic nghiep vu phuc tap.
-3. Khong co quan sat production nhu logging, monitoring, hoac rollback strategy.
-4. Chua co IaC day du cho toan bo he thong, moi co blueprint cho Render va cau hinh Vercel.
-
-## Kich ban trinh bay
-
-Ban co the noi ngan gon theo thu tu sau:
-
-1. Gioi thieu de tai va muc tieu: xay dung he thong dat mon FullStack co CI/CD.
-2. Mo ta kien truc: React frontend, Express backend, MongoDB Atlas.
-3. Trinh bay workflow GitHub Actions: validate frontend, validate backend, deploy Vercel, deploy Render.
-4. Demo luong user/admin va cach API ket noi qua `VITE_API_URL`.
-5. Ket luan: he thong da dap ung bai toan trien khai FullStack co tu dong hoa deploy.
-
-## Cau tra loi ngan khi hoi ve tinh day du
-
-Neu giang vien hoi "da dap ung day du chua?", ban co the tra loi:
-
-"Ve mat kien truc va quy trinh, du an da dap ung dung de tai FullStack Deployment: co frontend, backend, database, va GitHub Actions tu dong validate va deploy. Neu trien khai tren moi truong that, chi can cau hinh them secrets va deploy hook cho Vercel, Render, va MongoDB Atlas."
-
-## Tac Gia
-
-Nguyen Van Quyen - Dai hoc Cong nghe Thong tin (UIT)
